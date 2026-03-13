@@ -24,6 +24,7 @@ type Student = {
   mobile: string;
   folioNo: string;
   rollNo: string;
+  photo?: string | null;   // ✅ ADD THIS
   isMainStudent: number;
   status: string;
   class: { id: number; className: string } | null;
@@ -358,12 +359,23 @@ export default function StudentsPage() {
               <div className="p-4 flex items-start gap-3.5">
 
                 {/* Avatar */}
-                <div
-                  className="w-14 h-14 rounded-2xl flex items-center justify-center text-xl font-black flex-shrink-0 select-none"
-                  style={{ background: av.bg, color: av.text }}
-                >
-                  {av.initials}
-                </div>
+                {s.photo ? (
+  <img
+    src={s.photo}
+    alt={s.name}
+    className="w-14 h-14 rounded-2xl object-cover flex-shrink-0"
+    onError={(e) => {
+      (e.currentTarget as HTMLImageElement).style.display = "none";
+    }}
+  />
+) : (
+  <div
+    className="w-14 h-14 rounded-2xl flex items-center justify-center text-xl font-black flex-shrink-0 select-none"
+    style={{ background: av.bg, color: av.text }}
+  >
+    {av.initials}
+  </div>
+)}
 
                 {/* Info */}
                 <div className="flex-1 min-w-0">
